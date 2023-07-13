@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:42:17 by melih             #+#    #+#             */
-/*   Updated: 2023/07/05 23:56:57 by melih            ###   ########.fr       */
+/*   Updated: 2023/07/13 20:29:21 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
+void randomChump(std::string name);
 Zombie* newZombie(std::string name);
-void	randomChump(std::string name);
 
 int	main()
 {
-	Zombie	*zombie = new Zombie("zombie1");
-	Zombie	*zombie2 = newZombie("zombie2");
-
+	Zombie *zombie = newZombie("melih");
 	zombie->announce();
-	zombie2->announce();
-	zombie->~Zombie();
-	zombie2->~Zombie();
-	randomChump("zombie3");
+	delete zombie;
+	randomChump("mustafa");
 	return (0);
 }
