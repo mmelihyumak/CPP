@@ -2,22 +2,22 @@
 
 void	Harl::debug(void)
 {
-	std::cout << "DEBUG" << std::endl;
+	std::cout << "DEBUG-> " << "7XL double cheese, triple pickle, special sauce burger with extra pork pastrami is something I really enjoy! I truly love it!" << std::endl;
 }
 
 void	Harl::info(void)
 {
-	std::cout << "INFO" << std::endl;
+	std::cout << "INFO-> " << "I can't believe adding extra pork pastrami costs more money. You didn't put enough pastrami in my burger! If you had, I wouldn't have asked for more!" << std::endl;
 }
 
 void	Harl::warning(void)
 {
-	std::cout << "WARNING" << std::endl;
+	std::cout << "WARNING-> " << "I believe I deserve to have extra pastrami for free. I've been coming here for years, and you just started working here last month." << std::endl;
 }
 
 void	Harl::error(void)
 {
-	std::cout << "ERROR" << std::endl;
+	std::cout << "ERROR-> " << "This is unacceptable! I want to speak to the manager right now." << std::endl;
 }
 
 void	Harl::complain(std::string level)
