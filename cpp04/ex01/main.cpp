@@ -11,7 +11,7 @@ int main()
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	
-	i->makeSound(); //will output the cat sound!
+	i->makeSound();
 	j->makeSound();
 	meta->makeSound();
 	
@@ -19,6 +19,6 @@ int main()
 	delete i;
 	delete meta;
 
-	system("leaks program");
+	//system("leaks program");
 	return (0);
 }

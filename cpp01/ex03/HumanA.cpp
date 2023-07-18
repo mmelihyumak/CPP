@@ -2,7 +2,7 @@
 
 void HumanA::attack()
 {
-	std::cout << this->name << " attack with his " << this->weapon.getType() << std::endl;
+	std::cout << this->name << " attacks with his " << this->weapon.getType() << std::endl;
 }
 
 HumanA::HumanA(std::string name, Weapon &weapon) : weapon(weapon)

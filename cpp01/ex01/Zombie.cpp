@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 00:00:39 by melih             #+#    #+#             */
-/*   Updated: 2023/07/13 21:23:39 by muyumak          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "Zombie.hpp"
 
@@ -25,7 +14,7 @@ Zombie::Zombie(std::string name)
 
 Zombie::~Zombie()
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << name <<  ": Destructor called" << std::endl;
 }
 
 void Zombie::announce(void)
