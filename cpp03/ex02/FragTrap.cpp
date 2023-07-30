@@ -1,20 +1,39 @@
 #include "FragTrap.hpp"
 
+FragTrap::FragTrap()
+{
+    std::cout << "FragTrap default constructor called" << std::endl;
+}
+
 FragTrap::~FragTrap()
 {
-	std::cout << "FragTrap destructor called" << std::endl;
+    std::cout << "FragTrap destructor called" << std::endl;
 }
 
 FragTrap::FragTrap(std::string name)
 {
-	std::cout << "FragTrap constructor called" << std::endl;
-	this->name = name;
-	this->hitPoints = 100;
-	this->energyPoints = 100;
-	this->attackDamage = 30;
+    std::cout << "FragTrap constructor called" << std::endl;
+    this->name = name;
+    this->hitPoints = 100;
+    this->energyPoints = 100;
+    this->attackDamage = 30;
 }
 
-void FragTrap::highFivesGuys(void)
+FragTrap::FragTrap(const FragTrap& fragTrap)
 {
-	std::cout << "Hey guys! Give me a high five!!!" << std::endl;
+    *this = fragTrap;
+}
+
+FragTrap& FragTrap::operator=(const FragTrap& fragTrap)
+{
+    this->name = fragTrap.name;
+    this->hitPoints = fragTrap.hitPoints;
+    this->energyPoints = fragTrap.energyPoints;
+    this->attackDamage = fragTrap.attackDamage;
+    return (*this);
+}
+
+void FragTrap::highFiveGuys(void)
+{
+    std::cout << "FragTrap " + this->name + " high five!" << std::endl;
 }
