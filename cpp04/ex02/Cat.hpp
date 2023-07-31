@@ -8,12 +8,14 @@ class Cat : public Animal
 {
 	private:
 		Brain *brain;
+
 	public:
 		Cat();
-		Cat(Cat &cat);
-		Cat& operator=(Cat &cat);
 		~Cat();
+		Cat(const Cat& cat);
+		Cat& operator=(const Cat& cat);
 		void makeSound() const;
+		Brain* getBrain() const;
 };
 
 #endif

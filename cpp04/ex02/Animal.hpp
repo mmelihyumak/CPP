@@ -10,11 +10,11 @@ class Animal
 
 	public:
 		//Animal();
-		//Animal(Animal &animal);
-		//Animal& operator=(Animal &animal);
 		virtual ~Animal();
+		//Animal(const Animal& animal);
+		//Animal& operator=(const Animal& animal);
+		virtual void makeSound() const = 0;
 		//std::string getType(void) const;
-		void virtual makeSound() const = 0;
 };
 
 #endif
