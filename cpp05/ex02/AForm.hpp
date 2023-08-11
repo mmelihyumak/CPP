@@ -8,35 +8,34 @@ class Bureaucrat;
 
 class AForm
 {
-	private:
+	protected:
 		const std::string name;
 		bool is_signed;
-		const int signGrade;
-		const int execGrade;
+		const int toSignGrade;
+		const int toExecGrade;
 
 	public:
 		AForm();
 		virtual ~AForm();
-		AForm(std::string name, int signGrade, int execGrade);
-		AForm(const AForm& aForm);
-		AForm& operator=(const AForm& aForm);
-		const std::string getName();
+		AForm(std::string name, int toSignGrade, int toExecGrade);
+		AForm(const AForm& form);
+		AForm& operator=(const AForm& form);
+		std::string getName();
 		bool getIsSigned();
-		int getSignGrade();
-		int getExecGrade();
+		int getToSignGrade();
+		int getToExecGrade();
 		virtual void beSigned(Bureaucrat& bureaucrat) = 0;
-		class GradeTooHighException : public std::exception
-        {
-            public:
-                virtual const char* what() const throw() { return "Grade too high!"; }
-        };
-        class GradeTooLowException : public std::exception
-        {
-            public:
-                virtual const char* what() const throw() { return "Grade too low!"; }
-        };
+		virtual void execute(Bureaucrat const & executor) const = 0;
+		class GradeTooHighException : public std::exception{
+			public:
+				virtual const char* what() const throw();
+		};
+		class GradeTooLowException : public std::exception{
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
-std::ostream& operator<<(std::ostream& os, const AForm& aForm); 
+std::ostream& operator<<(std::ostream& os, const AForm &form);
 
 #endif
