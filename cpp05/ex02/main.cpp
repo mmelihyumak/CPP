@@ -1,12 +1,10 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
-    ShrubberyCreationForm scForm("sc");
-    Bureaucrat melih("melih", 40);
-    melih.signForm(scForm);
-    melih.executeForm(scForm);
-    return (0);
+    return 0;
 }
