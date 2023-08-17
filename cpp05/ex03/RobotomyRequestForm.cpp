@@ -1,39 +1,39 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(){}
+RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45) {}
 
 RobotomyRequestForm::~RobotomyRequestForm(){}
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45), target(target){}
-
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& source) : AForm(source) {
-	*this = source;
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", 72, 45) {
+	_target = target;
 }
 
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& source) : AForm(source) {}
+
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& source){
-	AForm::operator=(source);
-	this->target = source.target;
+	_target = source._target;
 	return *this;
 }
 
-void RobotomyRequestForm::beSigned(Bureaucrat& bureaucrat){
-	if (bureaucrat.getGrade() > toSignGrade)
-		throw AForm::GradeTooLowException();
-	else
-		this->is_signed = true;
+std::string RobotomyRequestForm::getTarget() const{
+	return _target;
 }
 
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const{
-	if (this->is_signed == false)
-		throw AForm::FormIsNotSigned();
-	if (executor.getGrade() > toExecGrade)
+	if (this->_is_signed == false)
+		throw AForm::AFormIsNotSigned();
+	if (executor.getGrade() > this->_toExecGrade)
 		throw AForm::GradeTooLowException();
 	else{
 		srand(time(0));
-		std::cout << "Drilling noises..." << std::endl;
-		if (rand() % 2 == 0)
-			std::cout << this->target + " has been robotomized successfully!" << std::endl;
+		if (rand() % 2 == 1)
+			std::cout << _target + " has been robotomized!" << std::endl;
 		else
-			std::cout << this->target + " robotomization failed!" << std::endl;
+			std::cout << _target + " robotomy failed!" << std::endl;
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& source){
+	os << source.getTarget() << source.getName() << source.getToSignGrade() << source.getToExecGrade() << std::endl;
+	return os;
 }

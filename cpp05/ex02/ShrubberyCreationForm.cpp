@@ -1,45 +1,33 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137)
-{
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) {}
+
+ShrubberyCreationForm::~ShrubberyCreationForm(){}
+
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137) {
+	_target = target;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& source) : AForm(source) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", 145, 137), target(target)
-{
-}
-
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& shrubberyCreationForm) : AForm(shrubberyCreationForm)
-{
-	*this = shrubberyCreationForm;
-}
-
-ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& shrubberyCreationForm)
-{
-	AForm::operator=(shrubberyCreationForm);
-	this->target = shrubberyCreationForm.target;
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& source){
+	_target = source._target;
 	return *this;
 }
 
-void ShrubberyCreationForm::beSigned(Bureaucrat& bureaucrat){
-	if (bureaucrat.getGrade() > this->toSignGrade)
-		throw AForm::GradeTooLowException();
-	else
-		this->is_signed = true;
+std::string ShrubberyCreationForm::getTarget() const{
+	return _target;
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const{
-	if (this->is_signed == false)
-		throw AForm::FormIsNotSigned();
-	if (executor.getGrade() > this->toExecGrade)
+	if (this->_is_signed != true)
+		throw AForm::AFormIsNotSigned();
+	if (executor.getGrade() > this->_toExecGrade)
 		throw AForm::GradeTooLowException();
-	else
-	{
-		std::ofstream file(this->target + "_shrubbery", std::ios::trunc);
-		file << 
+	else{
+		std::ofstream file(this->_target + "_shrubbery");
+		if (file.is_open()){
+			file << 
 "               * \n"
 "              *** \n"
 "             ***** \n"
@@ -57,5 +45,18 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const{
 " ***************************** \n"
 "*******************************\n"
 "               |               \n" << std::endl;
+			file.close();
+		}else {
+			throw ShrubberyCreationForm::FileCouldntOpen();
+		}
 	}
+}
+
+const char* ShrubberyCreationForm::FileCouldntOpen::what() const throw(){
+	return "File couldn't open!";
+}
+
+std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& source){
+	os << source.getTarget() << source.getName() << source.getToSignGrade() << source.getToExecGrade() << std::endl;
+	return os;
 }

@@ -1,23 +1,20 @@
 #ifndef INTERN_HPP
 # define INTERN_HPP
 
-#include "AForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+# include "AForm.hpp"
+# include "Bureaucrat.hpp"
+# include "ShrubberyCreationForm.hpp"
+# include "RobotomyRequestForm.hpp"
+# include "PresidentialPardonForm.hpp"
 
-class Intern
-{
+class Intern{
+
 	public:
 		Intern();
 		~Intern();
-		Intern(const Intern& source);
-		Intern& operator=(const Intern& source);
+		Intern(const Intern& internt);
+		Intern& operator=(const Intern& intern);
 		AForm* makeForm(std::string formName, std::string target);
-		class FormNameIsWrong : public std::exception{
-			public:
-				virtual const char* what() const throw();
-		};
 };
 
 #endif

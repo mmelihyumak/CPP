@@ -3,10 +3,9 @@
 
 # include "AForm.hpp"
 
-class RobotomyRequestForm : public AForm
-{
+class RobotomyRequestForm : public AForm{
 	private:
-		std::string target;
+		std::string _target;
 
 	public:
 		RobotomyRequestForm();
@@ -14,8 +13,10 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm(std::string target);
 		RobotomyRequestForm(const RobotomyRequestForm& source);
 		RobotomyRequestForm& operator=(const RobotomyRequestForm& source);
-		void beSigned(Bureaucrat& bureaucrat);
+		std::string getTarget() const;
 		void execute(Bureaucrat const & executor) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& source);
 
 #endif

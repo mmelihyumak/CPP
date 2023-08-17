@@ -4,31 +4,32 @@ PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm
 
 PresidentialPardonForm::~PresidentialPardonForm(){}
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& source) : AForm(source) {
-	*this = source;
+PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 25, 5) {
+	_target = target;
 }
 
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& source) : AForm(source) {}
+
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& source){
-	AForm::operator=(source);
-	this->target = source.target;
+	_target = source._target;
 	return *this;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 25, 5), target(target) {}
-
-void PresidentialPardonForm::beSigned(Bureaucrat& bureaucrat){
-	if (bureaucrat.getGrade() > toSignGrade)
-		throw AForm::GradeTooLowException();
-	else
-		this->is_signed = true;
+std::string PresidentialPardonForm::getTarget() const{
+	return _target;
 }
 
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const {
-	if (this->is_signed == false)
-		throw AForm::FormIsNotSigned();
-	if (executor.getGrade() > this->toExecGrade)
+void PresidentialPardonForm::execute(Bureaucrat const & executor) const{
+	if (this->_is_signed == false)
+		throw AForm::AFormIsNotSigned();
+	if (executor.getGrade() > this->_toExecGrade)
 		throw AForm::GradeTooLowException();
 	else{
-		std::cout << this->target + " has been pardoned by Zaphod Beeblebrox" << std::endl;
+		std::cout << _target + " has been pardoned by Zaphod BeebleBrox" << std::endl;
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& source){
+	os << source.getTarget() << source.getName() << source.getToSignGrade() << source.getToExecGrade() << std::endl;
+	return os;
 }

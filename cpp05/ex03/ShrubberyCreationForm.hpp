@@ -2,20 +2,26 @@
 # define SHRUBBERYCREATIONFORM_HPP
 
 # include "AForm.hpp"
-# include <fstream>
+# include "fstream"
 
-class ShrubberyCreationForm : public AForm
-{
+class ShrubberyCreationForm : public AForm{
 	private:
-		std::string target;
+		std::string _target;
+
 	public:
 		ShrubberyCreationForm();
 		~ShrubberyCreationForm();
 		ShrubberyCreationForm(std::string target);
-		ShrubberyCreationForm(const ShrubberyCreationForm& shrubberyCreationForm);
-		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& shrubberyCreationForm);
-		void beSigned(Bureaucrat& bureaucrat);
+		ShrubberyCreationForm(const ShrubberyCreationForm& source);
+		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& source);
+		std::string getTarget() const;
 		void execute(Bureaucrat const & executor) const;
+		class FileCouldntOpen : public std::exception{
+			public:
+				virtual const char* what() const throw();
+		};
 };
+
+std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& source);
 
 #endif

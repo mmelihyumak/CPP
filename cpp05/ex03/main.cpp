@@ -1,23 +1,23 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
 #include "Intern.hpp"
 
-int main()
-{
-    try
-    {
-        Intern someRandomIntern;
-        AForm *rrf;
-        rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-        std::cout << *rrf << std::endl;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
-    return (0);
+int main(){
+	try
+	{
+		Bureaucrat melih("melih", 138);
+		ShrubberyCreationForm sc("sc");
+		Intern intern;
+		melih.signForm(sc);
+		melih.executeForm(sc);
+		AForm *form;
+		form = intern.makeForm("shrubbery creation", "melih");
+		std::cout << *form << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	return 0;
 }
