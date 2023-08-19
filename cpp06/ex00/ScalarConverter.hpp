@@ -12,6 +12,8 @@ class ScalarConverter{
 
 		static void convert(std::string arg);
 
+		static void execConvert(int i);
+
 		static bool is_char(std::string arg);
 		static bool is_int(std::string arg);
 		static bool is_float(std::string arg);
