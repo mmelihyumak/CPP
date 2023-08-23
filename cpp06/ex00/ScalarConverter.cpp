@@ -14,24 +14,43 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& source){
 }
 
 void ScalarConverter::convert(std::string arg){
+
 	if (ScalarConverter::is_char(arg) == true){
-		ScalarConverter::convertInt(arg);
-		ScalarConverter::convertFloat(arg);
-		ScalarConverter::convertDouble(arg);
 		std::cout << "The arg is a char!" << std::endl;
+		char argChar = convertChar(arg);
+		std::cout << "char: " << argChar << std::endl;
+		charToInt(argChar);
+		charToFloat(argChar);
+		charToDouble(argChar);
 	}
 	else if (ScalarConverter::is_int(arg) == true){
-		ScalarConverter::convertChar(arg);
-		ScalarConverter::convertFloat(arg);
-		ScalarConverter::convertDouble(arg);
 		std::cout << "The arg is an integer!" << std::endl;
+		int argInt = convertInt(arg);
+		intToChar(argInt);
+		std::cout << "int: " << argInt << std::endl;
+		intToDouble(argInt);
+		intToFloat(argInt);
 	}
 	else if (ScalarConverter::is_double(arg) == true)
+	{
 		std::cout << "The arg is a double!" << std::endl;
-	else if (ScalarConverter::is_float(arg) == true)
+		double argDouble = convertDouble(arg);
+		doubleToChar(argDouble);
+		doubleToInt(argDouble);
+		doubleToFloat(argDouble);
+		std::cout << "double: " << argDouble << std::endl;
+	}
+	else if (ScalarConverter::is_float(arg) == true){
 		std::cout << "The arg is a float!" << std::endl;
+		float argFloat = convertFloat(arg);
+		floatToChar(argFloat);
+		floatToInt(argFloat);
+		std::cout << "float: " << argFloat << "f" <<  std::endl;
+		floatToDouble(argFloat);
+	}
 	else
 		std::cerr << "Invalid argument type!" << std::endl;
+	
 }
 
 bool ScalarConverter::is_char(std::string arg){
@@ -61,7 +80,6 @@ bool ScalarConverter::is_float(std::string arg){
 			}
 	}
 	int dotIndex = arg.find(".");
-	std::cout << "Dot index-> " << dotIndex << std::endl;
 	if (dotIndex == -1 || dotIndex == arg.size() - 1 || arg[arg.size() - 1] != 'f')
 		return false;
 	return true;
@@ -74,7 +92,6 @@ bool ScalarConverter::is_double(std::string arg){
 				return false;
 	}
 	int dotIndex = arg.find(".");
-	std::cout << "Dot index-> " << dotIndex << std::endl;
 	if (dotIndex == -1 || dotIndex == arg.size() - 1 || arg[arg.size() - 1] == 'f')
 		return false;
 	return true;
@@ -84,24 +101,101 @@ bool ScalarConverter::is_double(std::string arg){
 
 char ScalarConverter::convertChar(std::string arg){
 	char result = static_cast<char>(arg[0]);
-	std::cout << "char: " << result << std::endl;
 	return result;
 }
 
 int ScalarConverter::convertInt(std::string arg){
 	int result = static_cast<int>(std::stoi(arg));
-	std::cout << "int: " << result << std::endl;
 	return result;
 }
 
 float ScalarConverter::convertFloat(std::string arg){
 	float result = static_cast<float>(std::stof(arg));
-	std::cout << "float: " << result << std::endl;
-	return 0;
+	return result;
 }
 
 double ScalarConverter::convertDouble(std::string arg){
 	double result = static_cast<double>(std::stod(arg));
-	std::cout << "double: " << result << std::endl;
-	return 0;
+	return result;
+}
+
+
+
+void ScalarConverter::charToInt(char arg){
+	int i = static_cast<int>(arg);
+	std::cout << "int: " << i << std::endl;
+}
+
+void ScalarConverter::charToDouble(char arg){
+	double i = static_cast<double>(arg);
+	std::cout << "double: " << i << ".0" << std::endl;
+}
+
+void ScalarConverter::charToFloat(char arg){
+	float i = static_cast<float>(arg);
+	std::cout << "float: " << i << ".0f" << std::endl;
+}
+
+
+
+void ScalarConverter::intToChar(int arg){
+	char c = static_cast<char>(arg);
+	if (isprint(c))
+		std::cout << "char: " << c << std::endl;
+	else
+		std::cout << "char: " <<  "Non displayable" << std::endl;
+}
+
+void ScalarConverter::intToDouble(int arg){
+	double d = static_cast<double>(arg);
+	std::cout << "double: " << d << ".0" << std::endl;
+}
+
+void ScalarConverter::intToFloat(int arg){
+	float f = static_cast<float>(arg);
+	std::cout << "float: " << f << ".0f" << std::endl;
+}
+
+
+
+void ScalarConverter::doubleToChar(double arg){
+	char c = static_cast<char>(arg);
+	if (isprint(c))
+		std::cout << "char: " << c << std::endl;
+	else
+		std::cout << "char: " <<  "Non displayable" << std::endl;
+}
+
+void ScalarConverter::doubleToInt(double arg){
+	int i = static_cast<int>(arg);
+	std::cout << "int: " << i << std::endl;
+}
+
+void ScalarConverter::doubleToFloat(double arg){
+	float f = static_cast<float>(arg);
+	float mod = f / (int)f;
+	if (f / (int)f == 1)
+		std::cout << "float: " << f << ".0f" << std::endl;
+	else
+		std::cout << "float: " << f << "f" << std::endl;
+}
+
+
+
+void ScalarConverter::floatToChar(float arg){
+	char c = static_cast<char>(arg);
+	if (isprint(c))
+		std::cout << "char: " << c << std::endl;
+	else
+		std::cout << "char: " <<  "Non displayable" << std::endl;
+}
+
+void ScalarConverter::floatToInt(float arg){
+	int i = static_cast<int>(arg);
+	std::cout << "int: " << i << std::endl;
+}
+
+void ScalarConverter::floatToDouble(float arg){
+	double d = static_cast<double>(arg);
+	std::cout << "double: " << d << std::endl;
 }

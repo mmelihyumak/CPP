@@ -12,12 +12,12 @@ class Array{
 
     public:
         Array(){
-            this->arr = new T();
+            this->arr = new T;
             n = 1;
         }
 
         Array(unsigned int n){
-            this->arr = new T(n);
+            this->arr = new T[n];
             this->n = n;
             for (int i = 0; i < n; i++)
                 arr[i] = i + 1;
@@ -33,6 +33,7 @@ class Array{
             this->arr = new T(this->n);
             for (int i = 0; i < n; i++)
                 this->arr[i] = (source.getArr())[i];
+            return *this;
         }
 
         class OutOfBoundsException : std::exception{
@@ -48,7 +49,7 @@ class Array{
             return arr[i];
         }
 
-        T* getArr(void){
+        T* getArr(void) const{
             return arr;
         }
 
