@@ -38,7 +38,7 @@ class ScalarConverter{
 		static void floatToInt(float arg);
 		static void floatToDouble(float arg);
 
-		static void pseudoCheck(std::string arg); // burda kaldın
+		static int pseudoCheck(std::string arg);
 };
 
 #endif

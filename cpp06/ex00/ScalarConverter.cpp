@@ -15,8 +15,8 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& source){
 
 void ScalarConverter::convert(std::string arg){
 
+	
 	if (ScalarConverter::is_char(arg) == true){
-		std::cout << "The arg is a char!" << std::endl;
 		char argChar = convertChar(arg);
 		std::cout << "char: '" << argChar << "'" << std::endl;
 		charToInt(argChar);
@@ -24,7 +24,6 @@ void ScalarConverter::convert(std::string arg){
 		charToDouble(argChar);
 	}
 	else if (ScalarConverter::is_int(arg) == true){
-		std::cout << "The arg is an integer!" << std::endl;
 		int argInt = convertInt(arg);
 		intToChar(argInt);
 		std::cout << "int: " << argInt << std::endl;
@@ -33,22 +32,26 @@ void ScalarConverter::convert(std::string arg){
 	}
 	else if (ScalarConverter::is_double(arg) == true)
 	{
-		std::cout << "The arg is a double!" << std::endl;
 		double argDouble = convertDouble(arg);
 		doubleToChar(argDouble);
 		doubleToInt(argDouble);
 		doubleToFloat(argDouble);
-		std::cout << "double: " << argDouble << std::endl;
+		if (argDouble / (int)argDouble == 1)
+			std::cout << "double: " << argDouble << ".0" << std::endl;
+		else
+			std::cout << "double: " << argDouble << std::endl;
 	}
 	else if (ScalarConverter::is_float(arg) == true){
-		std::cout << "The arg is a float!" << std::endl;
 		float argFloat = convertFloat(arg);
 		floatToChar(argFloat);
 		floatToInt(argFloat);
-		std::cout << "float: " << argFloat << "f" <<  std::endl;
+		if (argFloat / (int)argFloat == 1)
+			std::cout << "float: " << argFloat << ".0f" <<  std::endl;
+		else
+			std::cout << "float: " << argFloat << "f" <<  std::endl;
 		floatToDouble(argFloat);
 	}
-	else
+	else if (!pseudoCheck(arg))
 		std::cerr << "Invalid argument type!" << std::endl;
 	
 }
@@ -62,23 +65,28 @@ bool ScalarConverter::is_char(std::string arg){
 }
 
 bool ScalarConverter::is_int(std::string arg){
-	for(unsigned int i = 0; i < arg.size(); i++){
-		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
+	unsigned int i = 0;
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
+	while(i < arg.size()){
+		if (arg.find('.') != std::string::npos)
 			return false;
-		if (isdigit(arg[i]) == 0 && arg[0] != '-' && arg[0] != '+'){
+		if (isdigit(arg[i]) == 0){
 				return false;
 		}
+		i++;
 	}
 	return true;
 }
 
 bool ScalarConverter::is_float(std::string arg){
-	for(unsigned int i = 0; i < arg.size(); i++){
-		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
-			return false;
-		if (isdigit(arg[i]) == 0 && arg[0] != '-' && arg[0] != '+'){
-			if (arg[0] == '.')
-				return false;
+	unsigned int i = 0;
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
+	if (arg[0] == '.')
+		return false;
+	while (i++ < arg.size()){
+		if (arg[i] && isdigit(arg[i]) == 0){
 			if (arg[i] != '.'){
 				if (arg[i] != 'f'){
 					return false;
@@ -95,8 +103,8 @@ bool ScalarConverter::is_float(std::string arg){
 
 bool ScalarConverter::is_double(std::string arg){
 	for(unsigned int i = 0; i < arg.size(); i++){
-		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
-			return false;
+		if (arg[0] == '-' || arg[0] == '+')
+			i++;
 		if (isdigit(arg[i]) == 0 && (arg[0] != '-' || arg[0] != '+'))
 		{
 			if (arg[0] == '.')
@@ -111,7 +119,7 @@ bool ScalarConverter::is_double(std::string arg){
 	return true;
 }
 
-// Dönüşüm methodları yazılacak!
+
 
 char ScalarConverter::convertChar(std::string arg){
 	char result = static_cast<char>(arg[0]);
@@ -154,7 +162,9 @@ void ScalarConverter::charToFloat(char arg){
 
 void ScalarConverter::intToChar(int arg){
 	char c = static_cast<char>(arg);
-	if (isprint(c))
+	if (arg <= -1 || arg > 127)
+		std::cout << "char: " <<  "Impossible" << std::endl;
+	else if (isprint(c))
 		std::cout << "char: " << c << std::endl;
 	else
 		std::cout << "char: " <<  "Non displayable" << std::endl;
@@ -174,7 +184,9 @@ void ScalarConverter::intToFloat(int arg){
 
 void ScalarConverter::doubleToChar(double arg){
 	char c = static_cast<char>(arg);
-	if (isprint(c))
+	if (arg <= -1 || arg > 127)
+		std::cout << "char: " <<  "Impossible" << std::endl;
+	else if (isprint(c))
 		std::cout << "char: " << c << std::endl;
 	else
 		std::cout << "char: " <<  "Non displayable" << std::endl;
@@ -197,7 +209,9 @@ void ScalarConverter::doubleToFloat(double arg){
 
 void ScalarConverter::floatToChar(float arg){
 	char c = static_cast<char>(arg);
-	if (isprint(c))
+	if (arg <= -1 || arg > 127)
+		std::cout << "char: " <<  "Impossible" << std::endl;
+	else if (isprint(c))
 		std::cout << "char: " << c << std::endl;
 	else
 		std::cout << "char: " <<  "Non displayable" << std::endl;
@@ -210,11 +224,40 @@ void ScalarConverter::floatToInt(float arg){
 
 void ScalarConverter::floatToDouble(float arg){
 	double d = static_cast<double>(arg);
-	std::cout << "double: " << d << std::endl;
+	if (d / int(d) == 1)
+		std::cout << "double: " << d << ".0" << std::endl;
+	else
+		std::cout << "double: " << d << std::endl;
 }
 
-
-
-void ScalarConverter::pseudoCheck(std::string arg){
-	
+int ScalarConverter::pseudoCheck(std::string arg){
+	if (arg == "-inf" || arg == "-inff"){
+		float f = std::numeric_limits<float>::infinity();
+		f *= -1;
+		std::cout << "char: " << "Impossible" << std::endl;
+		std::cout << "int: " << "Impossible" << std::endl;
+		std::cout << "float: " << f << "f" << std::endl;
+		double d = std::numeric_limits<double>::infinity();
+		d *= -1;
+		std::cout << "double: " << d << std::endl;
+	}
+	else if (arg == "+inf" || arg == "+inff"){
+		float f = std::numeric_limits<float>::infinity();
+		std::cout << "char: " << "Impossible" << std::endl;
+		std::cout << "int: " << "Impossible" << std::endl;
+		std::cout << "float: " << f << "f" << std::endl;
+		double d = std::numeric_limits<double>::infinity();
+		std::cout << "double: " << d << std::endl;
+	}
+	else if (arg == "nan" || arg == "nanf"){
+		std::cout << "char: " << "Impossible" << std::endl;
+		std::cout << "int: " << "Impossible" << std::endl;
+		float f = std::numeric_limits<float>::quiet_NaN();
+		std::cout << "float: " << f << "f" << std::endl;
+		double d = std::numeric_limits<double>::quiet_NaN();
+		std::cout << "double: " << d << std::endl;
+	}
+	else
+		return 0;
+	return 1;
 }
