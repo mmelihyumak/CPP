@@ -21,6 +21,20 @@ int Bureaucrat::getGrade() const{
 	return _grade;
 }
 
+void Bureaucrat::incrementGrade(int n){
+	if (this->_grade - n < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else
+		this->_grade -= n;
+}
+
+void Bureaucrat::decrementGrade(int n){
+	if (this->_grade + n > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else
+		this->_grade += n;
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name), _grade(grade){
 	if (_grade > 150)
 		throw Bureaucrat::GradeTooLowException();

@@ -18,7 +18,7 @@ void ScalarConverter::convert(std::string arg){
 	if (ScalarConverter::is_char(arg) == true){
 		std::cout << "The arg is a char!" << std::endl;
 		char argChar = convertChar(arg);
-		std::cout << "char: " << argChar << std::endl;
+		std::cout << "char: '" << argChar << "'" << std::endl;
 		charToInt(argChar);
 		charToFloat(argChar);
 		charToDouble(argChar);
@@ -28,8 +28,8 @@ void ScalarConverter::convert(std::string arg){
 		int argInt = convertInt(arg);
 		intToChar(argInt);
 		std::cout << "int: " << argInt << std::endl;
-		intToDouble(argInt);
 		intToFloat(argInt);
+		intToDouble(argInt);
 	}
 	else if (ScalarConverter::is_double(arg) == true)
 	{
@@ -62,37 +62,51 @@ bool ScalarConverter::is_char(std::string arg){
 }
 
 bool ScalarConverter::is_int(std::string arg){
-	for(int i = 0; i < arg.size(); i++){
-		if (isdigit(arg[i]) == 0)
+	for(unsigned int i = 0; i < arg.size(); i++){
+		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
 			return false;
+		if (isdigit(arg[i]) == 0 && arg[0] != '-' && arg[0] != '+'){
+				return false;
+		}
 	}
 	return true;
 }
 
 bool ScalarConverter::is_float(std::string arg){
-	for(int i = 0; i < arg.size(); i++){
-		if (isdigit(arg[i]) == 0)
+	for(unsigned int i = 0; i < arg.size(); i++){
+		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
+			return false;
+		if (isdigit(arg[i]) == 0 && arg[0] != '-' && arg[0] != '+'){
+			if (arg[0] == '.')
+				return false;
 			if (arg[i] != '.'){
 				if (arg[i] != 'f'){
 					return false;
 				}else if (i != arg.size() - 1)
 					return false;
 			}
+		}
 	}
 	int dotIndex = arg.find(".");
-	if (dotIndex == -1 || dotIndex == arg.size() - 1 || arg[arg.size() - 1] != 'f')
+	if (dotIndex == -1 || (size_t)dotIndex == arg.size() - 1 || arg[arg.size() - 1] != 'f')
 		return false;
 	return true;
 }
 
 bool ScalarConverter::is_double(std::string arg){
-	for(int i = 0; i < arg.size(); i++){
-		if (isdigit(arg[i]) == 0)
-			if (arg[i] != '.')
+	for(unsigned int i = 0; i < arg.size(); i++){
+		if (i != 0 && (arg[i] == '-' || arg[i] == '+'))
+			return false;
+		if (isdigit(arg[i]) == 0 && (arg[0] != '-' || arg[0] != '+'))
+		{
+			if (arg[0] == '.')
 				return false;
+			if (arg[i] != '.' && arg[0] != '-' && arg[0] != '+')
+				return false;
+		}
 	}
 	int dotIndex = arg.find(".");
-	if (dotIndex == -1 || dotIndex == arg.size() - 1 || arg[arg.size() - 1] == 'f')
+	if (dotIndex == -1 || (size_t)dotIndex == arg.size() - 1 || arg[arg.size() - 1] == 'f')
 		return false;
 	return true;
 }
@@ -173,7 +187,6 @@ void ScalarConverter::doubleToInt(double arg){
 
 void ScalarConverter::doubleToFloat(double arg){
 	float f = static_cast<float>(arg);
-	float mod = f / (int)f;
 	if (f / (int)f == 1)
 		std::cout << "float: " << f << ".0f" << std::endl;
 	else
@@ -198,4 +211,10 @@ void ScalarConverter::floatToInt(float arg){
 void ScalarConverter::floatToDouble(float arg){
 	double d = static_cast<double>(arg);
 	std::cout << "double: " << d << std::endl;
+}
+
+
+
+void ScalarConverter::pseudoCheck(std::string arg){
+	
 }

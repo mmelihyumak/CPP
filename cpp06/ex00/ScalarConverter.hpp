@@ -4,10 +4,6 @@
 # include <iostream>
 
 class ScalarConverter{
-	private:
-		std::string input;
-		std::string type;
-
 	public:
 		ScalarConverter();
 		~ScalarConverter();
@@ -41,6 +37,8 @@ class ScalarConverter{
 		static void floatToChar(float arg);
 		static void floatToInt(float arg);
 		static void floatToDouble(float arg);
+
+		static void pseudoCheck(std::string arg); // burda kaldın
 };
 
 #endif
