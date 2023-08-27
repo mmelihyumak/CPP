@@ -9,7 +9,7 @@ int main()
 
     {
         std::string array[4] = {"mustafa", "melih", "yumak", "abcd"};
-        iter(array, 6, print);
+        iter(array, 4, print);
     }
     return 0;
 }
