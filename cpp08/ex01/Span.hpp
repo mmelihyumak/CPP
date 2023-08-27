@@ -18,10 +18,18 @@ class Span{
 		std::vector<int> getNumbers();
 
 		void addNumber(int number);
+		void addNumbers(int number);
 
 		//shortestSpan - longestSpan
+		int shortestSpan();
+		int longestSpan();
+		static bool comp(int a, int b);
 
 		class VectorIsFullException : public std::exception{
+			public:
+				virtual const char* what() const throw();
+		};
+		class VectorIsEmptyException : public std::exception{
 			public:
 				virtual const char* what() const throw();
 		};
