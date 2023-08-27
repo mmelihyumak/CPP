@@ -7,17 +7,11 @@
 # include <set>
 
 template <typename T>
-int easyfind(T a, int n){
-
-	int i = 0;
-	typename T::iterator it;
-	typename T::iterator end = a.end();
-	for (it = a.begin(); it != end; ++it){
-		if (*it == n)
-			return i;
-		i++;
-	}
-	return -1;
+typename T::iterator easyfind(T &t, int n){
+	typename T::iterator it = std::find(t.begin(), t.end(), n);
+	if (it == t.end())
+		throw std::exception();
+	return it;
 }
 
 #endif
