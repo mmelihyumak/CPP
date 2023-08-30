@@ -66,8 +66,6 @@ bool Span::comp(int a, int b){
 	return a < b;
 }
 
-
-//shortestSpan düzeltilecek!!!
 int Span::shortestSpan(){
 	try
 	{
@@ -83,7 +81,13 @@ int Span::shortestSpan(){
 	std::vector<int> temp = this->numbers;
 	std::sort(temp.begin(), temp.end());
 
-	return temp[1] - temp[0];
+	int min = temp[1] - temp[0];
+
+	for (int i = 0; i < (int)temp.size() - 1; i++){
+		if (min > temp[i + 1] - temp[i])
+			min = temp[i + 1] - temp[i];
+	}
+	return min;
 }
 
 int Span::longestSpan(){

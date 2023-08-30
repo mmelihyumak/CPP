@@ -2,6 +2,7 @@
 # define SPAN_HPP
 
 # include <iostream>
+# include <vector>
 
 class Span{
 	private:
@@ -20,10 +21,9 @@ class Span{
 		void addNumber(int number);
 		void addNumbers(int number);
 
-		//shortestSpan - longestSpan
 		int shortestSpan();
 		int longestSpan();
-		static bool comp(int a, int b);
+		static bool comp(int a, int b); //bunu kontrol et
 
 		class VectorIsFullException : public std::exception{
 			public:

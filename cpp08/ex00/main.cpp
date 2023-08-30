@@ -2,7 +2,6 @@
 
 int main(){
 
-
 	std::list<int> numbers;
 
 	numbers.push_back(10);
@@ -21,8 +20,7 @@ int main(){
 	intVector.push_back(40);
 	intVector.push_back(30);
 	intVector.push_back(50);
-	std::cout << *(easyfind(intVector, 30)) << std::endl;
-
+	std::cout << *(easyfind(intVector, 20)) << std::endl;
 
 	std::set<int> intSet;
 
@@ -31,9 +29,8 @@ int main(){
 	intSet.insert(30);
 	intSet.insert(50);
 	intSet.insert(10);
-	std::cout << *(easyfind(intSet, 30)) << std::endl;
 
-
+	std::cout << *(easyfind(intSet, 40)) << std::endl;
 
 	return 0;
 }

@@ -63,6 +63,5 @@ int main(int, char**)
         numbers[i] = rand();
     }
     delete [] mirror;
-    system("leaks program");
     return 0;
 }
