@@ -2,7 +2,6 @@
 
 Span::Span(){
 	this->N = 0;
-	std::cout << "Default constructor called" << std::endl;
 }
 
 Span::~Span(){}
@@ -46,14 +45,16 @@ void Span::addNumber(int number){
 void Span::addNumbers(int number){
 	try
 	{
-		if (this->numbers.size() == this->N)
+		if (number > this->N)
 			throw Span::VectorIsFullException();
+		this->numbers.resize(number);
+		std::vector<int>::iterator begin;
 		srand(time(NULL));
-		for (int i = 0; i < number; i++){
-			if (i % 2 == 1)
-				this->numbers.push_back((rand() % 100000) * -1);
-			else
-				this->numbers.push_back(rand() % 100000);
+		for (begin = this->numbers.begin(); begin < this->numbers.end(); begin++){
+			*begin = (rand() % 100) + number;
+			number--;
+			if (rand() % 2 == 1)
+				*begin *= -1;
 		}
 	}
 	catch(const std::exception& e)
@@ -62,22 +63,9 @@ void Span::addNumbers(int number){
 	}
 }
 
-bool Span::comp(int a, int b){
-	return a < b;
-}
-
 int Span::shortestSpan(){
-	try
-	{
-		if (this->numbers.size() <= 1)
-			throw Span::VectorIsEmptyException();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		return 0;
-	}
-	
+	if (this->numbers.size() <= 1)
+		throw Span::VectorIsEmptyException();
 	std::vector<int> temp = this->numbers;
 	std::sort(temp.begin(), temp.end());
 
@@ -91,23 +79,15 @@ int Span::shortestSpan(){
 }
 
 int Span::longestSpan(){
-	try
-	{
-		if (this->numbers.size() <= 1)
-			throw Span::VectorIsEmptyException();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		return 0;
-	}
-	
+	if (this->numbers.size() <= 1)
+		throw Span::VectorIsEmptyException();
+
 	std::vector<int>::iterator min = std::min_element(this->numbers.begin(), this->numbers.end());
 	std::vector<int>::iterator max = std::max_element(this->numbers.begin(), this->numbers.end());
 
 	return *max - *min;
-}
 
+}
 
 const char* Span::VectorIsFullException::what() const throw(){
 	return "Vector is full";

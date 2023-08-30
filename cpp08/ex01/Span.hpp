@@ -23,7 +23,6 @@ class Span{
 
 		int shortestSpan();
 		int longestSpan();
-		static bool comp(int a, int b); //bunu kontrol et
 
 		class VectorIsFullException : public std::exception{
 			public:

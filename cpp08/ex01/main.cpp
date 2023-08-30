@@ -2,32 +2,25 @@
 
 int main(){
 
-{
-	/*Span span(5);
-	//std::cout << span << std::endl;
-	span.addNumber(5);
+	{
+		Span span(40000);
+		//std::cout << span << std::endl;
+	
+		span.addNumbers(40000);
 
-	span.addNumber(-5);
-	span.addNumber(45);
-	span.addNumber(15);
+		
+		std::cout << "Span: " << span << std::endl;
 
-	span.addNumbers(20000);
-
-
-	std::cout << "Size: " << span.getNumbers().size() << std::endl;
-	std::cout << span.shortestSpan() << std::endl;
-	std::cout << span.longestSpan() << std::endl;*/
-}
-{
-	Span sp = Span(5);
-sp.addNumber(6);
-sp.addNumber(3);
-sp.addNumber(17);
-sp.addNumber(9);
-sp.addNumber(11);
-std::cout << sp.shortestSpan() << std::endl;
-std::cout << sp.longestSpan() << std::endl;
-}
-	//std::cout << span << std::endl;
+		//std::cout << "Size: " << span.getNumbers().size() << std::endl;
+		try
+		{
+			std::cout << span.shortestSpan() << std::endl;
+			std::cout << span.longestSpan() << std::endl;
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+	}	
 	return 0;
 }
