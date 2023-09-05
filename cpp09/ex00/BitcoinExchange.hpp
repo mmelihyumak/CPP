@@ -2,19 +2,19 @@
 # define BITCOINEXCHANGE_HPP
 
 # include <iostream>
-# include <vector>
 # include <map>
+# include <vector>
 # include <fstream>
 # include <ostream>
 # include <sstream>
 # include <string>
+# include "Date.hpp"
 
 
 class BitcoinExchange{
     private:
-        std::map<std::string, float> db;
-        std::map<std::string, float> input;
-    
+        std::map<t_date, float> db;
+        std::map<t_date, float> in;
     public:
         BitcoinExchange();
         ~BitcoinExchange();
@@ -22,17 +22,10 @@ class BitcoinExchange{
         BitcoinExchange(const BitcoinExchange &source);
         BitcoinExchange& operator=(const BitcoinExchange &source);
 
-        void read_database(std::string filename, int flag);
+        void readfile(std::string filename);
 
-        void parse_date(std::string &all_date);
-        void parse_data(std::string line);
         void replace(std::string &str);
-
-        //getters
-        std::map<std::string, float>& getDb();
-        std::map<std::string, float>& getInput();
-
-        void execdb();
+        t_date fill_t_date(std::string &key);
 
         class FileIsIncorrect : public std::exception{
             public:
@@ -40,7 +33,5 @@ class BitcoinExchange{
         };
 
 };
-
-std::ostream& operator<<(std::ostream &os, BitcoinExchange &btc);
 
 #endif

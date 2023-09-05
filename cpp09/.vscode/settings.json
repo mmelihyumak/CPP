@@ -66,6 +66,12 @@
 		"compare": "cpp",
 		"concepts": "cpp",
 		"algorithm": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"utility": "cpp",
+		"__functional_base": "cpp",
+		"__tree": "cpp",
+		"functional": "cpp",
+		"iterator": "cpp",
+		"map": "cpp"
 	}
 }

@@ -1,17 +1,17 @@
-SRCS	=	main.cpp BitcoinExchange.cpp
+SRCS	=	main.cpp BitcoinExchange.cpp Date.cpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
 NAME	=	btc
 
-CC		=	c++
+CXX 	=	c++
 
-CPPFLAGS=	-std=c++98 #-Wall -Wextra -Werror
+CXXFLAGS=	-std=c++98 
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CC) $(OBJS) -o $(NAME)
+			$(CXX) $(OBJS) -o $(NAME) -fsanitize=address -g 
 
 clean:		
 			$(RM) $(OBJS)

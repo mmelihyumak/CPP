@@ -1,15 +1,8 @@
 #include "BitcoinExchange.hpp"
 
-
 BitcoinExchange::BitcoinExchange(){}
 
 BitcoinExchange::~BitcoinExchange(){}
-
-BitcoinExchange::BitcoinExchange(std::string filename){
-
-    read_database("data.csv", 0);
-    read_database(filename, 1);
-}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &source){
     *this = source;
@@ -18,67 +11,62 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &source){
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &source){
     if (this != &source){
         this->db = source.db;
-        this->input = source.input;
+        this->in = source.in;
     }
     return *this;
 }
 
-// Getters
-std::map<std::string, float>& BitcoinExchange::getDb(){
-    return this->db;
+BitcoinExchange::BitcoinExchange(std::string filename){
+    readfile(filename);
 }
 
-std::map<std::string, float>& BitcoinExchange::getInput(){
-    return this->input;
-}
+void BitcoinExchange::readfile(std::string filename){
 
-void BitcoinExchange::read_database(std::string filename, int flag){
+    std::ifstream file(filename);
+    if (file.is_open() == false){
+        std::cout << "File can not open!" << std::endl;
+        exit(0);
+    }
 
     std::string line;
-    std::string key;
-    std::string value;
-    std::ifstream data(filename);
-    char schar;
-    std::map<std::string, float>::iterator ite;
+    getline(file, line);
+    std::cout << "line: " << line << std::endl;
 
-    if (data.is_open() != true)
-        throw BitcoinExchange::FileIsIncorrect();
+    getline(file, line);
+    std::cout << "line: " << line << std::endl;
+    replace(line);
 
-    while (getline(data, line)){
-        replace(line);
-        std::stringstream ss(line);
-        getline(ss, key, ',');
-        getline(ss, value, ',');
-        if (line != "date,exchange_rate" && value != "value"){
-            if (flag == 0)
-                db[key] = std::stof(value);
-            else
-                input[key] = std::stof(value);
-        }
-    }
-}
-
-void BitcoinExchange::execdb(){
-
-    std::map<std::string, float>::iterator in_begin = input.begin();
-    std::map<std::string, float>::iterator in_end = input.end();
     
-    std::map<std::string, float>::iterator db_begin = db.begin();
-    std::map<std::string, float>::iterator db_end = db.end(); 
+    std::stringstream ss(line);
+    std::string key;
+    getline(ss, key, ',');
+    t_date date = fill_t_date(key);
 
-    while (in_begin != in_end){
-        while (db_begin != db_end){
-            if (in_begin->first == db_begin->first){
-                std::cout << in_begin->first << " => " << in_begin->second << " = " << (in_begin->second * db_begin->second) << std::endl;
-                break ;
-            }
-            
-            db_begin++;
-        }
-        in_begin++;
-    }
+    getline(ss, key, ',');
+    this->in[date] = std::stof(key);
+    std::cout << "value: " << this->in[date] << std::endl;
+
 }
 
+t_date BitcoinExchange::fill_t_date(std::string &key){
+    t_date date;
+
+    std::cout << "key: " << key << std::endl;
+
+    std::stringstream ss2(key);
+    std::string number;
+    getline(ss2, number, '-');
+    date.year = std::stoi(number);
+
+    getline(ss2, number, '-');
+    date.month = std::stoi(number);
+
+    getline(ss2, number, '-');
+    date.day = std::stoi(number);
+
+    std::cout << "year: " << date.year << " month: " << date.month << " day: " << date.day << std::endl;
+    return date;
+}
 
 void BitcoinExchange::replace(std::string &str){
 
@@ -97,20 +85,3 @@ void BitcoinExchange::replace(std::string &str){
 	}
 	str = temp;
 }
-
-const char* BitcoinExchange::FileIsIncorrect::what() const throw(){
-    return "Error: Invalid file format";
-}
-
-std::ostream& operator<<(std::ostream &os, BitcoinExchange &btc){
-
-    std::map<std::string, float>::iterator line_begin = btc.getDb().begin();
-    
-    while (line_begin != btc.getDb().end()){
-        std::cout << "Key: " << line_begin->first << " Value: " << line_begin->second << std::endl;
-        line_begin++;
-    }
-
-    return os;
-}
-
