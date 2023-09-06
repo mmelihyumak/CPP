@@ -1,4 +1,4 @@
-SRCS	=	main.cpp BitcoinExchange.cpp Date.cpp
+SRCS	=	main.cpp BitcoinExchange.cpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
@@ -11,7 +11,7 @@ CXXFLAGS=	-std=c++98
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CXX) $(OBJS) -o $(NAME) -fsanitize=address -g 
+			$(CXX) $(OBJS) -o $(NAME) -fsanitize=address -g
 
 clean:		
 			$(RM) $(OBJS)
