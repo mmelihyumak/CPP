@@ -8,12 +8,10 @@
 # include <sstream>
 # include <string>
 
-
 class BitcoinExchange{
     private:
         std::vector<std::string> db_dates;
         std::vector<float> db_values;
-
 
     public:
         BitcoinExchange();

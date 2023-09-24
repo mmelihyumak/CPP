@@ -94,7 +94,7 @@ void BitcoinExchange::exec(std::string input_filename){
 bool BitcoinExchange::errorcheck(std::string &line){
     int i = line.find(",", 0);
     if (isdigit(line[i - 1]) == false || (isdigit(line[i + 1]) == false && line[i + 1] != '-')){
-        std::cout << "Error: bad inputt" << std::endl;
+        std::cout << "Error: invalid format" << " => " << line << std::endl;
         return false;
     }
     else if (isdigit(line[i + 1]) == false && line[i + 1] == '-'){
@@ -113,8 +113,9 @@ bool BitcoinExchange::errorcheck(std::string &line){
     getline(ssdate, day, '-');
     std::string value;
     getline(ss, value, ',');
+
     if (!digitcheck(year) || !digitcheck(month) || !digitcheck(day)){
-        std::cout << "Error: bad input" << std::endl;
+        std::cout << "Error: bad input" << " =>1 " << date << std::endl;
         return false;
     }
     for (int x = 0; value[x]; x++){
@@ -126,7 +127,7 @@ bool BitcoinExchange::errorcheck(std::string &line){
             else if (x != 0 && value[x] == '.')
                 continue;
             else{
-                std::cout << "Error: bad inputtt" << std::endl;
+                std::cout << "Error: bad input" << " =>2 " << date << std::endl;
                 return false;
             }
         }
@@ -140,6 +141,18 @@ bool BitcoinExchange::errorcheck(std::string &line){
         std::cout << "Error: not a positive number" << std::endl;
         return false;
     }
+
+    if (month > "12" || day > "31"){
+        std::cout << "Error: bad input" << " =>3 " << date << std::endl;
+        return false;
+    }
+    
+    if (day == "29" && month == "02" && std::stoi(year) % 4 != 0)
+    {
+        std::cout << "Error: bad input" << " =>3 " << date << std::endl;
+        return false;
+    }
+
     return true;
 }
 
