@@ -18,46 +18,16 @@ void PmergeMe::setMapValues(std::map<int, int> mapValues){
 	this->mapValues = mapValues;
 }
 
-void PmergeMe::setListValues(std::list<int> listValues){
-	this->listValues = listValues;
+void PmergeMe::setDequeValues(std::deque<int> dequeValues){
+	this->dequeValues = dequeValues;
 }
 
 std::map<int, int> PmergeMe::getMapValues(){
 	return this->mapValues;
 }
 
-std::list<int> PmergeMe::getListValues(){
-	return this->listValues;
-}
-
-void PmergeMe::mapInsertionSort(int left, int right){
-
-	for (int i = left + 1; i <= right; i++){
-		int key = mapValues[i];
-		int j = i - 1;
-		while (j >= left && mapValues[j] > key){
-			mapValues[j + 1] = mapValues[j];
-			j--;
-		}
-		mapValues[j + 1] = key;
-	}
-}
-
-void PmergeMe::listInsertionSort(int left, int right){
-
-	for (std::list<int>::iterator it = ++listValues.begin(); it != listValues.end(); ++it) {
-
-        int key = *it;
-        std::list<int>::iterator j = it;
-        
-        while (j != listValues.begin() && *(--j) > key) {
-            std::iter_swap(j, std::next(j, 1));
-        }
-        
-        if (*j > key) {
-            std::iter_swap(j, std::next(j, 1));
-        }
-    }
+std::deque<int> PmergeMe::getDequeValues(){
+	return this->dequeValues;
 }
 
 void printMap(std::map<int, int> maps, int mode){
@@ -74,6 +44,32 @@ void printMap(std::map<int, int> maps, int mode){
         it++;
     }
         std::cout << std::endl;
+}
+
+void PmergeMe::mapInsertionSort(int left, int right){
+
+	for (int i = left + 1; i <= right; i++){
+		int key = mapValues[i];
+		int j = i - 1;
+		while (j >= left && mapValues[j] > key){
+			mapValues[j + 1] = mapValues[j];
+			j--;
+		}
+		mapValues[j + 1] = key;
+	}
+}
+
+void PmergeMe::dequeInsertionSort(int left, int right){
+
+	for (int i = left + 1; i <= right; i++){
+		int key = dequeValues[i];
+		int j = i - 1;
+		while (j >= left && dequeValues[j] > key){
+			dequeValues[j + 1] = dequeValues[j];
+			j--;
+		}
+		dequeValues[j + 1] = key;
+	}
 }
 
 void PmergeMe::mapMergeSort(int left, int right){
@@ -111,6 +107,7 @@ void PmergeMe::mapMergeSort(int left, int right){
 			}
 			i++;
 		}
+
 		if (mid + 1 > right){
 			while (left <= k){
 				tempValues[i] = mapValues[left];
@@ -133,88 +130,66 @@ void PmergeMe::mapMergeSort(int left, int right){
 	}
 }
 
-void PmergeMe::listMergeSort(int left, int right){
+void PmergeMe::dequeMergeSort(int left, int right){
 
 	int sizeOfGroup = 5;
+	int countGroup = dequeValues.size() / 5;
+
+	if (dequeValues.size() % sizeOfGroup != 0)
+		countGroup++;
 
 	int mid = left + (right - left) / 2;
+
 	if (right - left + 1 <= sizeOfGroup){
-		listInsertionSort(0, right);
+		dequeInsertionSort(left, right);
 	}
 	else{
-		listMergeSort(left, mid);
-		listMergeSort(mid + 1, right);
 
-		std::list<int> tempValues;
-		std::list<int>::iterator tempIt = tempValues.begin();
+		dequeMergeSort(left, mid);
+		dequeMergeSort(mid + 1, right);
+
+		std::deque<int> tempValues;
 
 		int i = 0, j = left, k = mid;
 
 		while (i < (right - j + 1) && mid + 1 <= right && left <= k){
 
-			if (mapValues[left] > mapValues[mid + 1]){
-				*tempIt = mapValues[mid + 1];
+			if (dequeValues[left] > dequeValues[mid + 1]){
+				tempValues.push_back(dequeValues[mid + 1]);
 				mid++;
 			}
 			else{
-				*tempIt = mapValues[left];
+				tempValues.push_back(dequeValues[left]);
 				left++;
 			}
-			tempIt++;
 			i++;
 		}
 
 		if (mid + 1 > right){
 			while (left <= k){
-				*tempIt = mapValues[left];
+				tempValues.push_back(dequeValues[left]);
 				left++;
 				i++;
 			}
 		}
 		else if (left > k){
 			while (mid + 1 <= right){
-				*tempIt = mapValues[mid + 1];
+				tempValues.push_back(dequeValues[mid + 1]);
 				mid++;
 				i++;
 			}
 		}
 
-		tempIt = tempValues.begin();
-		std::list<int>::iterator it = listValues.begin();
-
-		for (int x = 0; x < j; x++){
-			it++;
-		}
-
 		for (int x = 0; x < tempValues.size(); x++){
-			*it = *tempIt;
+			dequeValues[j] = tempValues[x];
 			j++;
-			it++;
-			tempIt++;
 		}
 	}
-}
-
-void PmergeMe::printNumbers(){
-
-	std::cout << "Before: ";
-
-    std::list<int>::iterator it = this->listValues.begin();
-
-    while (it != this->listValues.end()){
-        std::cout << *it << " ";
-        it++;
-    }
-	std::cout << std::endl;
 }
 
 const char* PmergeMe::Error::what() const throw(){
 	return "Error";
 }
-
-
-
-
 
 //Silinecekler
 
@@ -226,6 +201,7 @@ void printMapV2(std::map<int, int> mapValues, int left, int right){
 	while (++i < left)
 		it++;
 
+	std::cout << "Map: ";
 	while (i <= right){
 		std::cout << it->second << " ";
 		i++;
@@ -233,4 +209,21 @@ void printMapV2(std::map<int, int> mapValues, int left, int right){
 	}
 	std::cout << std::endl;
 
+}
+
+void printDequeV2(std::deque<int> dequeValues, int left, int right){
+
+	std::deque<int>::iterator it = dequeValues.begin();
+	int i = -1;
+
+	while (++i < left)
+		it++;
+
+	std::cout << "Deque: ";
+	while (i <= right){
+		std::cout << *it << " ";
+		i++;
+		it++;
+	}
+	std::cout << std::endl;
 }

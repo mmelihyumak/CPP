@@ -52,21 +52,18 @@ std::map<int, int> setMap(int argc, char **argv){
     return mapValues;
 }
 
-std::list<int> setList(char **argv){
+std::deque<int> setDeque(int argc, char **argv){
 
-    if (!argv || !argv[0]){
+    if (argc < 2 || !argv[0][0]){
         std::cout << "Invalid argument number\n";
         exit(1);
     }
 
-    std::list<int> listValues;
+    std::deque<int> dequeValues;
 
     int i = -1;
-    int j = 0;
     int k = -1;
-
     std::string temp;
-
     while (argv[++i]){
         std::stringstream ss(argv[i]);
         while (getline(ss, temp, ' ')){
@@ -80,26 +77,11 @@ std::list<int> setList(char **argv){
             }
             if (temp[0] != 0){
                 int x = std::stoi(temp);
-                listValues.push_back(x);
-                j++;
+                dequeValues.push_back(x);
             }
         }
     }
-
-    return listValues;
-}
-
-void printList(std::list<int> list){
-
-    std::cout << "List: ";
-
-    std::list<int>::iterator it = list.begin();
-
-    while (it != list.end()){
-        std::cout << *it << " ";
-        it++;
-    }
-    std::cout << std::endl;
+    return dequeValues;
 }
 
 
@@ -112,21 +94,25 @@ int main(int argc, char **argv) {
         std::map<int, int> mapValues;
         mapValues = setMap(argc, argv + 1);
 
-        std::list<int> listValues;
-        listValues = setList(argv + 1);
+        std::deque<int> dequeValues;
+        dequeValues = setDeque(argc, argv + 1);
+
         pm.setMapValues(mapValues);
-        pm.setListValues(listValues);
+        pm.setDequeValues(dequeValues);
+
         printMap(mapValues, 0);
+
         clock_t mapStartTime = clock();
         pm.mapMergeSort(0, pm.getMapValues().size() - 1);
         clock_t mapFinishTime = clock();
-        clock_t listStartTime = clock();
-        pm.listMergeSort(0, listValues.size() - 1);
-        clock_t listFinishTime = clock();
+
+
+        clock_t dequeStartTime = clock();
+        pm.dequeMergeSort(0, pm.getDequeValues().size() - 1);
+        clock_t dequeFinishTime = clock();
 
         mapValues = pm.getMapValues();
-        //printMapV2(mapValues, 0, mapValues.size() - 1);
-        listValues = pm.getListValues();
+        dequeValues = pm.getDequeValues();
 
         printMap(mapValues, 1);
 
@@ -134,9 +120,9 @@ int main(int argc, char **argv) {
         std::cout << "Time to process a range of " << mapValues.size() << " elements with std::map : "
             << timeMap<< " us" << std::endl;
 
-        double timeList = static_cast<double>(listFinishTime - listStartTime);
-        std::cout << "Time to process a range of " << listValues.size() << " elements with std::list : "
-            << timeList << " us" << std::endl;
+        double timeDeque = static_cast<double>(dequeFinishTime - dequeStartTime);
+        std::cout << "Time to process a range of " << dequeValues.size() << " elements with std::deque : "
+            << timeDeque<< " us" << std::endl;
     }
     catch(const std::exception& e)
     {

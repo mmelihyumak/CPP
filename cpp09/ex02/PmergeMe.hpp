@@ -2,8 +2,8 @@
 # define PMERGEME_HPP
 
 # include <iostream>
-# include <list>
 # include <map>
+# include <deque>
 # include <sstream>
 # include <ctime>
 # include <algorithm>
@@ -13,7 +13,7 @@ class PmergeMe{
 
 	private:
 		std::map<int, int> mapValues;
-		std::list<int> listValues;
+		std::deque<int> dequeValues;
 
 	public:
 		PmergeMe();
@@ -22,17 +22,17 @@ class PmergeMe{
 		PmergeMe& operator=(const PmergeMe &source);
 
 		void setMapValues(std::map<int, int> mapValues);
-		void setListValues(std::list<int> listValues);
+		void setDequeValues(std::deque<int> dequeValues);
 
 		std::map<int, int> getMapValues();
-		std::list<int> getListValues();
+		std::deque<int> getDequeValues();
 
 		void mapInsertionSort(int left, int right);
+		void dequeInsertionSort(int left, int right);
 		
-		void listInsertionSort(int left, int right);
 
 		void mapMergeSort(int left, int right);
-		void listMergeSort(int left, int right);
+		void dequeMergeSort(int left, int right);
 	
 		void printNumbers();
 
@@ -45,6 +45,6 @@ class PmergeMe{
 
 //Silinecekler!!!
 void printMapV2(std::map<int, int> mapValues, int left, int right);
-
+void printDequeV2(std::deque<int> dequeValues, int left, int right);
 
 #endif
