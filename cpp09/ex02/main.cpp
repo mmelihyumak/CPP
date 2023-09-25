@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
-void printMap(std::map<int, int> maps, int mode){
+
+static void printMap(std::map<int, int> maps, int mode){
 
 
     if (mode == 0)
@@ -10,14 +11,10 @@ void printMap(std::map<int, int> maps, int mode){
 
     std::map<int, int>::iterator it = maps.begin();
 
-    int i = -1;
-    while (it != maps.end() && ++i < 5){
+    while (it != maps.end()){
         std::cout << it->second << " ";
         it++;
     }
-    if (maps.size() > 5)
-        std::cout << "[...]" << std::endl;
-    else
         std::cout << std::endl;
 }
 
@@ -121,12 +118,14 @@ int main(int argc, char **argv) {
         pm.setListValues(listValues);
         printMap(mapValues, 0);
         clock_t mapStartTime = clock();
-        pm.mapMergeSort(0, pm.getMapValues().size());   
+        pm.mapMergeSort(0, pm.getMapValues().size() - 1);
         clock_t mapFinishTime = clock();
         clock_t listStartTime = clock();
-        pm.listMergeSort(0, listValues.size());
+        pm.listMergeSort(0, listValues.size() - 1);
         clock_t listFinishTime = clock();
+
         mapValues = pm.getMapValues();
+        //printMapV2(mapValues, 0, mapValues.size() - 1);
         listValues = pm.getListValues();
 
         printMap(mapValues, 1);

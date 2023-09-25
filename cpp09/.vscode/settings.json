@@ -72,6 +72,7 @@
 		"__tree": "cpp",
 		"functional": "cpp",
 		"iterator": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"charconv": "cpp"
 	}
 }

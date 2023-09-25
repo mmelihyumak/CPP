@@ -4,7 +4,7 @@ OBJS	=	$(SRCS:.cpp=.o)
 
 NAME	=	PmergeMe
 
-CXX 	=	c++
+CXX 	=	c++ -g
 
 CXXFLAGS=	-std=c++98
 

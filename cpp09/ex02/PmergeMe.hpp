@@ -43,4 +43,8 @@ class PmergeMe{
 
 };
 
+//Silinecekler!!!
+void printMapV2(std::map<int, int> mapValues, int left, int right);
+
+
 #endif

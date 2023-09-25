@@ -11,7 +11,7 @@ CXXFLAGS=	-std=c++98
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(CXX) $(OBJS) -o $(NAME) -fsanitize=address -g
+			$(CXX) $(OBJS) -o $(NAME)
 
 clean:		
 			$(RM) $(OBJS)
