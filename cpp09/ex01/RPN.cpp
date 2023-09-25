@@ -16,7 +16,6 @@ RPN& RPN::operator=(const RPN &source){
 }
 
 void RPN::push_operand(int operand){
-
 	this->operands.push(operand);
 }
 
@@ -42,6 +41,13 @@ void RPN::exec_operator(int x1, int x2, char operate){
 }
 
 void RPN::print_res(){
-	std::cout << operands.top() << std::endl;
+
+	if (operands.size() > 1)
+		std::cout << "Invalid operate" << std::endl;
+	else
+		std::cout << operands.top() << std::endl;
 }
 
+std::stack<int> RPN::getOperands(){
+	return this->operands;
+}

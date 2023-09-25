@@ -19,6 +19,8 @@ class RPN{
 		int pop_operand();
 		void exec_operator(int x1, int x2, char operate);
 		void print_res();
+
+		std::stack<int> getOperands();
 };
 
 #endif
