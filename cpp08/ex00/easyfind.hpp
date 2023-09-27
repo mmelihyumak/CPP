@@ -3,10 +3,9 @@
 
 # include <iostream>
 
-
 class NotFound : public std::exception{
 	public:
-		virtual const char* what() const throw(){
+		const char* what() const throw(){
 			return "404 error not found";
 		}
 };

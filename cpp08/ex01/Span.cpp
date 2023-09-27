@@ -30,36 +30,22 @@ std::vector<int> Span::getNumbers(){
 }
 
 void Span::addNumber(int number){
-	try
-	{
-		if (this->numbers.size() == this->N)
-			throw Span::VectorIsFullException();
-		this->numbers.push_back(number);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	if (this->numbers.size() == this->N)
+		throw Span::VectorIsFullException();
+	this->numbers.push_back(number);
 }
 
 void Span::addNumbers(int number){
-	try
-	{
-		if (number > this->N)
-			throw Span::VectorIsFullException();
-		this->numbers.resize(number);
-		std::vector<int>::iterator begin;
-		srand(time(NULL));
-		for (begin = this->numbers.begin(); begin < this->numbers.end(); begin++){
-			*begin = (rand() % 100) + number;
-			number--;
-			if (rand() % 2 == 1)
-				*begin *= -1;
-		}
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
+	if ((unsigned int)number > this->N)
+		throw Span::VectorIsFullException();
+	this->numbers.resize(number);
+	std::vector<int>::iterator begin;
+	srand(time(NULL));
+	for (begin = this->numbers.begin(); begin < this->numbers.end(); begin++){
+		*begin = (rand() % 100) + ((rand() % 100)  * (rand() % 100));
+		number--;
+		if (rand() % 2 == 1)
+			*begin *= -1;
 	}
 }
 
@@ -90,7 +76,7 @@ int Span::longestSpan(){
 }
 
 const char* Span::VectorIsFullException::what() const throw(){
-	return "Vector is full";
+	return "There is no enough space";
 }
 
 const char * Span::VectorIsEmptyException::what() const throw(){

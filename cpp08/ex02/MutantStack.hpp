@@ -4,6 +4,7 @@
 # include <iostream>
 # include <stack>
 # include <iterator>
+# include <list>
 
 template <typename T>
 class MutantStack : public std::stack<T> {
@@ -47,9 +48,6 @@ MutantStack<T>::~MutantStack(){
 
 template <typename T>
 MutantStack<T>::MutantStack(const MutantStack<T> &source){
-    if (this != &source){
-        std::stack<T>::operator=(source);
-    }
     *this = source;
 }
 

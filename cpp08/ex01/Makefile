@@ -2,11 +2,11 @@ SRCS	=	main.cpp Span.cpp
 
 OBJS	=	$(SRCS:.cpp=.o)
 
-NAME	=	program
+NAME	=	span
 
 CC		=	c++
 
-CPPFLAGS=	-std=c++98 #-Wall -Wextra -Werror
+CPPFLAGS=	-std=c++98 -Wall -Wextra -Werror
 
 all:		$(NAME)
 

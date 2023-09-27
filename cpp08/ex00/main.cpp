@@ -2,6 +2,7 @@
 #include <vector>
 #include <set>
 #include <list>
+#include <deque>
 
 int main(){
 
@@ -25,14 +26,13 @@ int main(){
 		intVector.push_back(50);
 		std::cout << *(easyfind(intVector, 20)) << std::endl;
 
-		std::set<int> intSet;
-
-		intSet.insert(20);
-		intSet.insert(40);
-		intSet.insert(30);
-		intSet.insert(50);
-		intSet.insert(10);
-		std::cout << *(easyfind(intSet, 130)) << std::endl;
+		std::deque<int> intDeque;
+		intVector.push_back(10);
+		intVector.push_back(20);
+		intVector.push_back(40);
+		intVector.push_back(30);
+		intVector.push_back(50);
+		std::cout << *(easyfind(numbers, 20)) << std::endl;
 	}
 	catch(const std::exception& e)
 	{
