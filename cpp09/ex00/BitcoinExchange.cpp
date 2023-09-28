@@ -114,6 +114,10 @@ bool BitcoinExchange::errorcheck(std::string &line){
     std::string value;
     getline(ss, value, ',');
 
+    if (isdigit(line[0]) == false){
+        std::cout << "Error: bad input" << " =>1 " << date << std::endl;
+        return false;
+    }
     if (!digitcheck(year) || !digitcheck(month) || !digitcheck(day)){
         std::cout << "Error: bad input" << " =>1 " << date << std::endl;
         return false;
@@ -142,17 +146,33 @@ bool BitcoinExchange::errorcheck(std::string &line){
         return false;
     }
 
-    if (month > "12" || day > "31"){
+    if (month > "12" || month <= "00" ||  day > "31" || day <= "00"){
         std::cout << "Error: bad input" << " =>3 " << date << std::endl;
         return false;
     }
-    
+
     if (day == "29" && month == "02" && std::stoi(year) % 4 != 0)
     {
         std::cout << "Error: bad input" << " =>3 " << date << std::endl;
         return false;
     }
 
+    if (month == "02" && day >= "30"){
+        std::cout << "Error: bad input" << " =>3 " << date << std::endl;
+        return false;
+    }
+
+    if (month == "01" || month == "03" || month == "05" || month == "07" || month == "08" || month == "10" || month == "12"){
+        if (day > "31"){
+            std::cout << "Error: bad input" << " =>3 " << date << std::endl;
+            return false;
+        }
+    }else{
+        if (day > "30"){
+            std::cout << "Error: bad input" << " =>3 " << date << std::endl;
+            return false;
+        }
+    }
     return true;
 }
 
