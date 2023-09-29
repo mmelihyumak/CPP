@@ -9,8 +9,10 @@ PmergeMe::PmergeMe(const PmergeMe &source){
 }
 
 PmergeMe& PmergeMe::operator=(const PmergeMe &source){
-
-
+	if (this != &source){
+		this->mapValues = source.mapValues;
+		this->dequeValues = source.dequeValues;
+	}
 	return *this;
 }
 
@@ -123,7 +125,7 @@ void PmergeMe::mapMergeSort(int left, int right){
 			}
 		}
 
-		for (int x = 0; x < tempValues.size(); x++){
+		for (size_t x = 0; x < tempValues.size(); x++){
 			mapValues[j] = tempValues[x];
 			j++;
 		}
@@ -180,7 +182,7 @@ void PmergeMe::dequeMergeSort(int left, int right){
 			}
 		}
 
-		for (int x = 0; x < tempValues.size(); x++){
+		for (size_t x = 0; x < tempValues.size(); x++){
 			dequeValues[j] = tempValues[x];
 			j++;
 		}

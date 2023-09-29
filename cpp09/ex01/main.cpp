@@ -9,6 +9,17 @@ int main(int argc, char **argv){
 
 	try
 	{
+		bool cont = false;
+		for (int i = 0; argv[1][i]; i++){
+			if (isdigit(argv[1][i]) == true){
+				cont = true;
+				break;
+			}
+		}
+		if (cont == false){
+			std::cout << "Error" << std::endl;
+			exit(1);
+		}
 		std::string arg;
 		RPN rpn;
 		std::stringstream ss(argv[1]);
@@ -34,7 +45,7 @@ int main(int argc, char **argv){
 			}
 			else{
 				
-				std::cout << "Errorrrr" << std::endl;
+				std::cout << "Error" << std::endl;
 				exit(0);
 			}
 		}

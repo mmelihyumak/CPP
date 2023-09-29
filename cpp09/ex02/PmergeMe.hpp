@@ -6,8 +6,6 @@
 # include <deque>
 # include <sstream>
 # include <ctime>
-# include <algorithm>
-# include <iterator>
 
 class PmergeMe{
 

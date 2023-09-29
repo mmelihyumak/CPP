@@ -6,7 +6,7 @@ NAME	=	btc
 
 CXX 	=	c++
 
-CXXFLAGS=	-std=c++98 
+CXXFLAGS=	-std=c++98 -Wall -Wextra -Werror
 
 all:		$(NAME)
 

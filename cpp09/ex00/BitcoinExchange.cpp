@@ -12,7 +12,8 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &source){
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &source){
     if (this != &source){
-        //burayı düzelt;
+        this->db_dates = source.db_dates;
+        this->db_values = source.db_values;
     }
     return *this;
 }
@@ -44,6 +45,7 @@ void BitcoinExchange::exec(std::string input_filename){
 
     if (file.is_open() == false){
         std::cout << "Error: No such file\n";
+        exit(1);
     }
 
     std::string line;
@@ -162,7 +164,7 @@ bool BitcoinExchange::errorcheck(std::string &line){
         return false;
     }
 
-    if (month == "01" || month == "03" || month == "05" || month == "07" || month == "08" || month == "10" || month == "12"){
+    if (month == "01" || month == "03" || month == "05" || month == "07}" || month == "08" || month == "10" || month == "12"){
         if (day > "31"){
             std::cout << "Error: bad input" << " =>3 " << date << std::endl;
             return false;
@@ -188,7 +190,7 @@ bool BitcoinExchange::digitcheck(std::string &str){
 
 void BitcoinExchange::replace(std::string &str){
 
-    int pos;
+    std::string::size_type pos;
     std::string temp;
     std::string search = " | ";
     std::string rplc = ",";
